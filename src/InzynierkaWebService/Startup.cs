@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using InzynierkaWebService.Models;
 
 namespace InzynierkaWebService
 {
@@ -27,8 +29,18 @@ namespace InzynierkaWebService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //optionsBuilder.UseSqlServer(@"Data Source=PAWLOWYPC;Initial Catalog=inzynierka;Integrated Security=True;Trusted_Connection=True;");
+
+            //var connection = @"Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;";
+            //var connection = @"Data Source=PAWLOWYPC;Initial Catalog=inzynierka;Integrated Security=True;Trusted_Connection=True;";
+            var connection = @"Server=tcp:cost-sharing-server.database.windows.net,1433;Initial Catalog=costSharingDB;Persist Security Info=False;User ID=introozAdmin;Password=azureadminPassword1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
+            services.AddDbContext<InzynierkaContext>(options => options.UseSqlServer(connection));
+
             // Add framework services.
             services.AddMvc();
+
+            services.AddSingleton<ICostRepository, CostRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
