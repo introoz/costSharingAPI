@@ -9,10 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using InzynierkaWebService.Models;
+using InzynierkaWebService.Helpers;
 
 namespace InzynierkaWebService
 {
-    public class Startup
+    public partial class Startup
     {
         public Startup(IHostingEnvironment env)
         {
@@ -29,13 +30,7 @@ namespace InzynierkaWebService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //optionsBuilder.UseSqlServer(@"Data Source=PAWLOWYPC;Initial Catalog=inzynierka;Integrated Security=True;Trusted_Connection=True;");
-
-            //var connection = @"Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;";
-            //var connection = @"Data Source=PAWLOWYPC;Initial Catalog=inzynierka;Integrated Security=True;Trusted_Connection=True;";
-            var connection = @"Server=tcp:cost-sharing-server.database.windows.net,1433;Initial Catalog=costSharingDB;Persist Security Info=False;User ID=introozAdmin;Password=azureadminPassword1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-
-            services.AddDbContext<InzynierkaContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<InzynierkaContext>(options => options.UseSqlServer(Configuration.GetSection("SecretStrings")["DefaultConnection"]));
 
             // Add framework services.
             services.AddMvc();
@@ -48,6 +43,8 @@ namespace InzynierkaWebService
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            ConfigureAuth(app);       
 
             app.UseMvc();
         }
