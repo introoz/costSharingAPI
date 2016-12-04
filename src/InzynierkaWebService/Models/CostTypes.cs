@@ -7,7 +7,7 @@ namespace InzynierkaWebService.Models
     {
         public CostTypes()
         {
-            Costs = new HashSet<Costs>();
+            Costs = new HashSet<Cost>();
             OperationsLog = new HashSet<OperationsLog>();
         }
 
@@ -17,7 +17,7 @@ namespace InzynierkaWebService.Models
         public int? OwnerId { get; set; }
         public int? InstanceId { get; set; }
 
-        public virtual ICollection<Costs> Costs { get; set; }
+        public virtual ICollection<Cost> Costs { get; set; }
         public virtual ICollection<OperationsLog> OperationsLog { get; set; }
         public virtual Instances Instance { get; set; }
         public virtual Users Owner { get; set; }

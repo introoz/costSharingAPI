@@ -17,7 +17,7 @@ namespace InzynierkaWebService.Models
         public decimal WholeAmount { get; set; }
 
         public virtual ICollection<OperationsLogParticipants> OperationsLogParticipants { get; set; }
-        public virtual Costs Cost { get; set; }
+        public virtual Cost Cost { get; set; }
         public virtual Members Member { get; set; }
     }
 }

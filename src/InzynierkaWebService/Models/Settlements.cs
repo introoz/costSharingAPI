@@ -11,7 +11,7 @@ namespace InzynierkaWebService.Models
         public int MemberOwed { get; set; }
         public decimal Value { get; set; }
 
-        public virtual Costs Cost { get; set; }
+        public virtual Cost Cost { get; set; }
         public virtual Members MemberInDebtNavigation { get; set; }
         public virtual Members MemberOwedNavigation { get; set; }
     }

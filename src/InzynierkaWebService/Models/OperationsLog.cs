@@ -20,7 +20,7 @@ namespace InzynierkaWebService.Models
         public bool ParticipantsChanged { get; set; }
 
         public virtual ICollection<OperationsLogParticipants> OperationsLogParticipants { get; set; }
-        public virtual Costs Cost { get; set; }
+        public virtual Cost Cost { get; set; }
         public virtual CostTypes CostType { get; set; }
         public virtual Members Member { get; set; }
     }

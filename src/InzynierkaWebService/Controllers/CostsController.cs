@@ -12,22 +12,18 @@ namespace InzynierkaWebService.Controllers
     [Route("api/[controller]")]
     public class CostsController : Controller
     {
-        //private InzynierkaContext _context;
-
         public ICostRepository Costs { get; set; }
 
-        public CostsController(ICostRepository costs)//, InzynierkaContext context)
+        public CostsController(ICostRepository costs)
         {
             Costs = costs;
-            //_context = context;
         }
 
         // GET: api/values
         [HttpGet(Name ="GetAll")]
-        public IEnumerable<Costs> GetAll()
+        public IEnumerable<Cost> GetAll()
         {
             return Costs.GetAll();
-            //return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
@@ -41,25 +37,44 @@ namespace InzynierkaWebService.Controllers
             }
 
             return new ObjectResult(item);
-            //return "value";
         }
 
-        //// POST api/values
-        //[HttpPost]
-        //public void Post([FromBody]string value)
-        //{
-        //}
+        // POST api/values
+        [HttpPost("CreateCost", Name ="CreateCost")]
+        public IActionResult Create([FromBody]Cost item)
+        {
+            if (item == null)
+            {
+                return BadRequest();
+            }
+            Costs.Add(item);
+            return CreatedAtRoute("CreateCost", /*new { id = item.CostId },*/ item);
+        }
 
-        //// PUT api/values/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
+        // POST api/values
+        [HttpPost("UpdateCost", Name = "UpdateCost")]
+        public IActionResult Update([FromBody]Cost item)
+        {
+            if (item == null)
+            {
+                return BadRequest();
+            }
+            Costs.Update(item);
+            return CreatedAtRoute("UpdateCost", /*new { id = item.CostId },*/ item);
+        }
 
-        //// DELETE api/values/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        [HttpDelete("DeleteCost/{id}")]
+        public IActionResult Delete(int id)
+        {
+            var item = Costs.Find(id);
+            //var todo = TodoItems.Find(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            Costs.Remove(id);
+            return new NoContentResult();
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace InzynierkaWebService.Models
     {
         public virtual DbSet<CostParticipants> CostParticipants { get; set; }
         public virtual DbSet<CostTypes> CostTypes { get; set; }
-        public virtual DbSet<Costs> Costs { get; set; }
+        public virtual DbSet<Cost> Costs { get; set; }
         public virtual DbSet<Groups> Groups { get; set; }
         public virtual DbSet<Instances> Instances { get; set; }
         public virtual DbSet<Members> Members { get; set; }
@@ -101,7 +101,7 @@ namespace InzynierkaWebService.Models
                     .HasConstraintName("cost type is saved for user");
             });
 
-            modelBuilder.Entity<Costs>(entity =>
+            modelBuilder.Entity<Cost>(entity =>
             {
                 entity.HasKey(e => e.CostId)
                     .HasName("PK_COSTS");
