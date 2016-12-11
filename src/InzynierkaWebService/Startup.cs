@@ -34,8 +34,8 @@ namespace InzynierkaWebService
 
             // Add framework services.
             services.AddMvc();
-
-            services.AddSingleton<ICostRepository, CostsRepository>();
+            services.AddCors();
+            services.AddSingleton<ICostRepository, CostRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +44,13 @@ namespace InzynierkaWebService
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            ConfigureAuth(app);       
+            ConfigureAuth(app);
+
+            app.UseCors(builder =>
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+            );
 
             app.UseMvc();
         }

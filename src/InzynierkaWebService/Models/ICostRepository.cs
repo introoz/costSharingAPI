@@ -7,10 +7,10 @@ namespace InzynierkaWebService.Models
 {
     public interface ICostRepository
     {
-        void Add(Cost item);
-        IEnumerable<Cost> GetAll();
-        Cost Find(int key);
+        void Add(Costs item);
+        IEnumerable<Costs> GetAll();
+        Costs Find(int key);
         bool Remove(int key);
-        void Update(Cost item);
+        void Update(Costs item);
     }
 }

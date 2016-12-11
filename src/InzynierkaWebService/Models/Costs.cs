@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace InzynierkaWebService.Models
 {
-    public partial class Cost
+    public partial class Costs
     {
-        public Cost()
+        public Costs()
         {
             CostParticipants = new HashSet<CostParticipants>();
             Notes = new HashSet<Notes>();

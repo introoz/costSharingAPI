@@ -7,7 +7,7 @@ namespace InzynierkaWebService.Models
     {
         public Instances()
         {
-            Costs = new HashSet<Cost>();
+            Costs = new HashSet<Costs>();
             CostTypes = new HashSet<CostTypes>();
         }
 
@@ -15,7 +15,7 @@ namespace InzynierkaWebService.Models
         public int GroupId { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<Cost> Costs { get; set; }
+        public virtual ICollection<Costs> Costs { get; set; }
         public virtual ICollection<CostTypes> CostTypes { get; set; }
         public virtual Groups Group { get; set; }
     }

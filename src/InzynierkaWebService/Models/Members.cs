@@ -8,7 +8,7 @@ namespace InzynierkaWebService.Models
         public Members()
         {
             CostParticipants = new HashSet<CostParticipants>();
-            Costs = new HashSet<Cost>();
+            Costs = new HashSet<Costs>();
             Notes = new HashSet<Notes>();
             OperationsLog = new HashSet<OperationsLog>();
             SettlementsMemberInDebtNavigation = new HashSet<Settlements>();
@@ -21,7 +21,7 @@ namespace InzynierkaWebService.Models
         public int GroupId { get; set; }
 
         public virtual ICollection<CostParticipants> CostParticipants { get; set; }
-        public virtual ICollection<Cost> Costs { get; set; }
+        public virtual ICollection<Costs> Costs { get; set; }
         public virtual ICollection<Notes> Notes { get; set; }
         public virtual ICollection<OperationsLog> OperationsLog { get; set; }
         public virtual ICollection<Settlements> SettlementsMemberInDebtNavigation { get; set; }
