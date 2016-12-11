@@ -8,9 +8,6 @@ namespace InzynierkaWebService.Models
 {
     public class CostRepository : ICostRepository
     {
-        private static ConcurrentDictionary<int, Costs> _costs =
-              new ConcurrentDictionary<int, Costs>();
-
         private InzynierkaContext _context;
 
 
