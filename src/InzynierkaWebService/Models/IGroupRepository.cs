@@ -7,8 +7,8 @@ namespace InzynierkaWebService.Models
 {
     public interface IGroupRepository
     {
-        IEnumerable<Groups> GetByUserName(string username);
-        IEnumerable<Groups> GetAll();
+        IEnumerable<GroupClone> GetByUserName(string username);
+        IEnumerable<GroupClone> GetAll();
         void Add(Groups item);
         Groups Find(int key);
         bool Remove(int key);

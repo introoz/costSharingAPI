@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SimpleTokenProvider.Test;
+using InzynierkaWebService.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace InzynierkaWebService
 {
@@ -21,7 +23,9 @@ namespace InzynierkaWebService
         {
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("SecretStrings")["SecretKey"]));
 
-            //var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
+            //var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));                        
+
+            var context = app.ApplicationServices.GetService<InzynierkaContext>();
 
             app.UseSimpleTokenProvider(new TokenProviderOptions
             {
@@ -29,7 +33,7 @@ namespace InzynierkaWebService
                 Audience = "ExampleAudience",
                 Issuer = "ExampleIssuer",
                 SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256),
-                IdentityResolver = GetIdentity
+                IdentityResolver = (username, password) => GetIdentity(context, username, password)
             });
 
             var tokenValidationParameters = new TokenValidationParameters
@@ -72,16 +76,23 @@ namespace InzynierkaWebService
             });
         }
 
-        private Task<ClaimsIdentity> GetIdentity(string username, string password)
+        private Task<ClaimsIdentity> GetIdentity(InzynierkaContext context, string username, string password)
         {
             // Don't do this in production, obviously!
-            if (username == "TEST" && password == "TEST123")
-            {
-                return Task.FromResult(new ClaimsIdentity(new GenericIdentity(username, "Token"), new Claim[] { }));
-            }
+            //if (username == "TEST" && password == "TEST123")
+            //{
+            //    return Task.FromResult(new ClaimsIdentity(new GenericIdentity(username, "Token"), new Claim[] { }));
+            //}
 
-            // Credentials are invalid, or account doesn't exist
-            return Task.FromResult<ClaimsIdentity>(null);
+            //// Credentials are invalid, or account doesn't exist
+            //return Task.FromResult<ClaimsIdentity>(null);
+
+            var user = context.Users.FirstOrDefault(u => u.Login == username && u.Password == password);
+            if (user != null)
+                return Task.FromResult(new ClaimsIdentity(new GenericIdentity(username, "Token"), new Claim[] { }));
+            else
+                return Task.FromResult<ClaimsIdentity>(null);
+
         }
     }
 }

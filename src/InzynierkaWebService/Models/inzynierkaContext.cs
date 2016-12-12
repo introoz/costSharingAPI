@@ -145,6 +145,7 @@ namespace InzynierkaWebService.Models
                     .HasConstraintName("member creates cost");
             });
 
+            //modelBuilder.Entity<Groups>().Ignore(g => g.GroupOwnerNavigation);
             modelBuilder.Entity<Groups>(entity =>
             {
                 entity.HasKey(e => e.GroupId)
@@ -172,6 +173,7 @@ namespace InzynierkaWebService.Models
                     .OnDelete(DeleteBehavior.Restrict)
                     .HasConstraintName("user creates group");
             });
+
 
             modelBuilder.Entity<Instances>(entity =>
             {

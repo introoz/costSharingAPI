@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InzynierkaWebService.Models
 {
@@ -16,7 +17,7 @@ namespace InzynierkaWebService.Models
         public int GroupOwner { get; set; }
 
         public virtual ICollection<Instances> Instances { get; set; }
-        public virtual ICollection<Members> Members { get; set; }
-        public virtual Users GroupOwnerNavigation { get; set; }
+        public virtual ICollection<Members> Members { get; set; }                
+        public Users GroupOwnerNavigation { get; set; }
     }
 }

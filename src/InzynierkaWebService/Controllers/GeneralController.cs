@@ -31,13 +31,14 @@ namespace InzynierkaWebService.Controllers
         }
 
         [HttpGet("GetGroupsByUsername/{username}")]
-        public IEnumerable<Groups> GetGroupsByUsername(string username)
+        public IEnumerable<GroupClone> GetGroupsByUsername(string username)
         {
-            return Groups.GetByUserName(username);
+            var x = Groups.GetByUserName(username);
+            return x;
         }
 
         [HttpGet("GetAllGroups")]
-        public IEnumerable<Groups> GetAll()
+        public IEnumerable<GroupClone> GetAll()
         {
             //return _context.Groups.ToList();
             return Groups.GetAll();
