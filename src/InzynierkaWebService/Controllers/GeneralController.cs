@@ -15,13 +15,14 @@ namespace InzynierkaWebService.Controllers
         //private InzynierkaContext _context;
 
         public ICostRepository Costs { get; set; }
-
         public IGroupRepository Groups { get; set; }
+        public IMemberRepository Members { get; set; }
 
-        public GeneralController(ICostRepository costs, IGroupRepository groups)
+        public GeneralController(ICostRepository costs, IGroupRepository groups, IMemberRepository members)
         {
             this.Costs = costs;
             this.Groups = groups;
+            this.Members = members;
         }
 
         [HttpGet("GetAllCosts")]
@@ -42,6 +43,14 @@ namespace InzynierkaWebService.Controllers
         {
             //return _context.Groups.ToList();
             return Groups.GetAll();
+            //return new string[] { "value1", "value2" };
+        }
+
+        [HttpGet("GetMembersByGroupId/{groupId}")]
+        public IEnumerable<MemberClone> GetMembersByGroupId(int groupId)
+        {
+            //return _context.Groups.ToList();
+            return Members.GetByGroupId(groupId);
             //return new string[] { "value1", "value2" };
         }
 

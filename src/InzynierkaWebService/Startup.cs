@@ -37,6 +37,7 @@ namespace InzynierkaWebService
             services.AddCors();
             services.AddSingleton<ICostRepository, CostRepository>();
             services.AddSingleton<IGroupRepository, GroupRepository>();
+            services.AddSingleton<IMemberRepository, MemberRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

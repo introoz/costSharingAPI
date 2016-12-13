@@ -18,6 +18,6 @@ namespace InzynierkaWebService.Models
 
         public virtual ICollection<Instances> Instances { get; set; }
         public virtual ICollection<Members> Members { get; set; }                
-        public Users GroupOwnerNavigation { get; set; }
+        public virtual Users GroupOwnerNavigation { get; set; }
     }
 }
