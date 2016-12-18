@@ -11,7 +11,9 @@ namespace InzynierkaWebService.Models
         IEnumerable<GroupClone> GetAll();
         void Add(Groups item);
         Groups Find(int key);
-        bool Remove(int key);
+        bool Remove(int groupId);
         void Update(Groups item);
+
+        Boolean SaveGroup(Groups group, string username);
     }
 }

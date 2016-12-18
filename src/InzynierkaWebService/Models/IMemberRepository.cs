@@ -8,5 +8,7 @@ namespace InzynierkaWebService.Models
     public interface IMemberRepository
     {
         IEnumerable<MemberClone> GetByGroupId(int groupId);
+        Boolean SaveMember(Members member);
+        bool Remove(int memberId);
     }
 }

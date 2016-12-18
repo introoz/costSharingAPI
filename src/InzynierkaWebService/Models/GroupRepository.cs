@@ -63,6 +63,33 @@ namespace InzynierkaWebService.Models
             return groupList;
         }
 
+        public Boolean SaveGroup(Groups item, string username)
+        {
+            var group = _context.Groups.FirstOrDefault(x => x.GroupId == item.GroupId);
+            if (group != null)
+            {
+                group.GroupName = item.GroupName;
+                _context.SaveChanges();
+            }
+            else
+            {
+                item.GroupId = _context.Groups.Last().GroupId + 1;
+                var user = _context.Users.FirstOrDefault(u => u.Login == username);
+                item.GroupOwner = user.UserId;
+                _context.Groups.Add(item);
+                _context.Members.Add(new Members
+                {
+                    MemberId = _context.Members.Last().MemberId + 1,
+                    CorrespondingUserId = user.UserId,
+                    GroupId = item.GroupId,
+                    Name = user.Login
+                });
+                _context.SaveChanges();
+            }
+            return true;
+        }
+
+
         public void Add(Groups item)
         {
             ;
@@ -71,9 +98,21 @@ namespace InzynierkaWebService.Models
         {
             return new Groups();
         }
-        public bool Remove(int key)
+        public bool Remove(int groupId)
         {
-            return true;
+            var group = _context.Groups.FirstOrDefault(g => g.GroupId == groupId);
+            if (group != null)
+            {
+                var groupMembers =_context.Members.Where(m => m.GroupId == groupId);
+
+                _context.Members.RemoveRange(groupMembers);
+                _context.Groups.Remove(group);
+                
+                _context.SaveChanges();
+                return true;
+            }
+            else
+                return false;
         }
         public void Update(Groups item)
         {

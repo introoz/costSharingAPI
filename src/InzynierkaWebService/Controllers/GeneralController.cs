@@ -54,5 +54,37 @@ namespace InzynierkaWebService.Controllers
             //return new string[] { "value1", "value2" };
         }
 
+        [HttpPost("SaveGroup/{username}")]
+        public IActionResult SaveGroup([FromBody] Groups group, string username)
+        {
+            if (group == null)
+            {
+                return BadRequest();
+            }
+
+            Groups.SaveGroup(group, username);
+
+            return new OkResult();
+        }
+
+        [HttpGet("DeleteGroup/{groupId}")]
+        public IActionResult DeleteGroup(int groupId)
+        {
+            bool flag = Groups.Remove(groupId);
+            if (flag)
+                return new OkResult();
+            else
+                return new NotFoundResult();
+        }
+
+        [HttpGet("DeleteMember/{memberId}")]
+        public IActionResult DeleteMember(int memberId)
+        {
+            bool flag = Members.Remove(memberId);
+            if (flag)
+                return new OkResult();
+            else
+                return new NotFoundResult();
+        }
     }
 }

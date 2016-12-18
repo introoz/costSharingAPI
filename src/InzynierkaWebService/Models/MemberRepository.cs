@@ -31,10 +31,10 @@ namespace InzynierkaWebService.Models
             {
                 memberList.Add(new MemberClone
                 {
-                     MemberId = member.MemberId,
-                     Name = member.Name,
-                     CorrespondingUserId = member.CorrespondingUserId,
-                     GroupId = member.GroupId
+                    MemberId = member.MemberId,
+                    Name = member.Name,
+                    CorrespondingUserId = member.CorrespondingUserId,
+                    GroupId = member.GroupId
 
                     // GroupId = group.GroupId,
                     // GroupName = group.GroupName,
@@ -51,6 +51,37 @@ namespace InzynierkaWebService.Models
             //var groupsList = groups.ToList();
 
             return memberList;
+        }
+
+        public Boolean SaveMember(Members member)
+        {
+            var foundMember = _context.Members.FirstOrDefault(m => m.MemberId == member.MemberId);
+            if (foundMember == null)
+            {
+                _context.Members.Add(new Members
+                {
+                    MemberId = _context.Members.Last().MemberId + 1,
+                    Name = member.Name,
+                    CorrespondingUserId = member.CorrespondingUserId,
+                    GroupId = member.GroupId
+                });
+                _context.SaveChanges();
+                return true;
+            }
+            return false;                        
+        }
+        public bool Remove(int memberId)
+        {
+            var member = _context.Members.FirstOrDefault(m => m.MemberId == memberId);
+            if (member != null)
+            {
+                _context.Members.Remove(member);
+
+                _context.SaveChanges();
+                return true;
+            }
+            else
+                return false;
         }
     }
 }
