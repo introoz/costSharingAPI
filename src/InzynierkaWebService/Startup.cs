@@ -38,6 +38,7 @@ namespace InzynierkaWebService
             services.AddSingleton<ICostRepository, CostRepository>();
             services.AddSingleton<IGroupRepository, GroupRepository>();
             services.AddSingleton<IMemberRepository, MemberRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

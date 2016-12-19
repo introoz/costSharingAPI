@@ -17,12 +17,15 @@ namespace InzynierkaWebService.Controllers
         public ICostRepository Costs { get; set; }
         public IGroupRepository Groups { get; set; }
         public IMemberRepository Members { get; set; }
+        public IUserRepository Users { get; set; }
 
-        public GeneralController(ICostRepository costs, IGroupRepository groups, IMemberRepository members)
+
+        public GeneralController(ICostRepository costs, IGroupRepository groups, IMemberRepository members, IUserRepository users)
         {
             this.Costs = costs;
             this.Groups = groups;
             this.Members = members;
+            this.Users = users;
         }
 
         [HttpGet("GetAllCosts")]
@@ -86,5 +89,12 @@ namespace InzynierkaWebService.Controllers
             else
                 return new NotFoundResult();
         }
+
+        [HttpGet("GetAllUsers")]
+        public IEnumerable<Users> GetAllUsers()
+        {
+            return Users.GetAll();
+        }
+
     }
 }
