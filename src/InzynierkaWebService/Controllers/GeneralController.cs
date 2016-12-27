@@ -17,15 +17,17 @@ namespace InzynierkaWebService.Controllers
         public ICostRepository Costs { get; set; }
         public IGroupRepository Groups { get; set; }
         public IMemberRepository Members { get; set; }
+        public IInstanceRepository Instances { get; set; }
         public IUserRepository Users { get; set; }
 
 
-        public GeneralController(ICostRepository costs, IGroupRepository groups, IMemberRepository members, IUserRepository users)
+        public GeneralController(ICostRepository costs, IGroupRepository groups, IMemberRepository members, IUserRepository users, IInstanceRepository instances)
         {
             this.Costs = costs;
             this.Groups = groups;
             this.Members = members;
             this.Users = users;
+            this.Instances = instances;
         }
 
         [HttpGet("GetAllCosts")]
@@ -80,6 +82,20 @@ namespace InzynierkaWebService.Controllers
                 return new NotFoundResult();
         }
 
+        [HttpPost("SaveMember")]
+        public IActionResult SaveMember([FromBody] Members member)
+        {
+            if (member == null)
+            {
+                return BadRequest();
+            }
+
+            //Groups.SaveGroup(group, username);
+            Members.SaveMember(member);
+
+            return new OkResult();
+        }
+
         [HttpGet("DeleteMember/{memberId}")]
         public IActionResult DeleteMember(int memberId)
         {
@@ -94,6 +110,18 @@ namespace InzynierkaWebService.Controllers
         public IEnumerable<Users> GetAllUsers()
         {
             return Users.GetAll();
+        }
+
+        [HttpGet("GetUsersByGroup/{groupId}")]
+        public IEnumerable<UserClone> GetByGroup(int groupId)
+        {
+            return Users.GetByGroup(groupId);
+        }
+
+        [HttpGet("GetInstancesByGroupId/{groupId}")]
+        public IEnumerable<InstanceClone> GetInstancesByGroupId(int groupId)
+        {
+            return Instances.GetByGroupId(groupId);
         }
 
     }

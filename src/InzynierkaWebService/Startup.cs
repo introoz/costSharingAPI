@@ -38,6 +38,7 @@ namespace InzynierkaWebService
             services.AddSingleton<ICostRepository, CostRepository>();
             services.AddSingleton<IGroupRepository, GroupRepository>();
             services.AddSingleton<IMemberRepository, MemberRepository>();
+            services.AddSingleton<IInstanceRepository, InstanceRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
         }
 

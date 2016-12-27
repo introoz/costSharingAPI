@@ -8,5 +8,7 @@ namespace InzynierkaWebService.Models
     public interface IUserRepository
     {
         IEnumerable<Users> GetAll();
+
+        IEnumerable<UserClone> GetByGroup(int groupId);
     }
 }

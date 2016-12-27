@@ -56,15 +56,25 @@ namespace InzynierkaWebService.Models
         public Boolean SaveMember(Members member)
         {
             var foundMember = _context.Members.FirstOrDefault(m => m.MemberId == member.MemberId);
+
+            var mem = new Members
+            {
+                MemberId = _context.Members.Last().MemberId + 1,
+                Name = member.Name,
+                CorrespondingUserId = member.CorrespondingUserId,
+                GroupId = member.GroupId
+            };
+
             if (foundMember == null)
             {
-                _context.Members.Add(new Members
-                {
-                    MemberId = _context.Members.Last().MemberId + 1,
-                    Name = member.Name,
-                    CorrespondingUserId = member.CorrespondingUserId,
-                    GroupId = member.GroupId
-                });
+                _context.Members.Add(mem);
+                //_context.Members.Add(new Members
+                //{
+                //    MemberId = _context.Members.Last().MemberId + 1,
+                //    Name = member.Name,
+                //    CorrespondingUserId = member.CorrespondingUserId,
+                //    GroupId = member.GroupId
+                //});
                 _context.SaveChanges();
                 return true;
             }
