@@ -30,7 +30,7 @@ namespace InzynierkaWebService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<InzynierkaContext>(options => options.UseSqlServer(Configuration.GetSection("SecretStrings")["DefaultConnection"]));
+            services.AddDbContext<CostSharingContext>(options => options.UseSqlServer(Configuration.GetSection("SecretStrings")["DefaultConnection"]));
 
             // Add framework services.
             services.AddMvc();
@@ -40,6 +40,7 @@ namespace InzynierkaWebService
             services.AddSingleton<IMemberRepository, MemberRepository>();
             services.AddSingleton<IInstanceRepository, InstanceRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<ICostTypeRepository, CostTypeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

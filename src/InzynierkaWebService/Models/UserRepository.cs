@@ -7,9 +7,9 @@ namespace InzynierkaWebService.Models
 {
     public class UserRepository : IUserRepository
     {
-        private InzynierkaContext _context;
+        private CostSharingContext _context;
 
-        public UserRepository(InzynierkaContext context)
+        public UserRepository(CostSharingContext context)
         {
             _context = context;
         }

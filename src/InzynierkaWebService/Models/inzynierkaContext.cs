@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace InzynierkaWebService.Models
 {
-    public partial class InzynierkaContext : DbContext
+    //public partial class InzynierkaContext : DbContext
+    public partial class CostSharingContext : DbContext
     {
         public virtual DbSet<CostParticipants> CostParticipants { get; set; }
         public virtual DbSet<CostTypes> CostTypes { get; set; }
@@ -24,7 +25,7 @@ namespace InzynierkaWebService.Models
         //            optionsBuilder.UseSqlServer(@"Data Source=PAWLOWYPC;Initial Catalog=inzynierka;Integrated Security=True;Trusted_Connection=True;");
         //        }
 
-        public InzynierkaContext(DbContextOptions<InzynierkaContext> options)
+        public CostSharingContext(DbContextOptions<CostSharingContext> options)
             : base(options)
         {
         }

@@ -25,7 +25,7 @@ namespace InzynierkaWebService
 
             //var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));                        
 
-            var context = app.ApplicationServices.GetService<InzynierkaContext>();
+            var context = app.ApplicationServices.GetService<CostSharingContext>();
 
             app.UseSimpleTokenProvider(new TokenProviderOptions
             {
@@ -76,7 +76,7 @@ namespace InzynierkaWebService
             });
         }
 
-        private Task<ClaimsIdentity> GetIdentity(InzynierkaContext context, string username, string password)
+        private Task<ClaimsIdentity> GetIdentity(CostSharingContext context, string username, string password)
         {
             // Don't do this in production, obviously!
             //if (username == "TEST" && password == "TEST123")

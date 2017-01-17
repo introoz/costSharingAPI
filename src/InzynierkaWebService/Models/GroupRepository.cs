@@ -9,9 +9,9 @@ namespace InzynierkaWebService.Models
 {
     public class GroupRepository : IGroupRepository
     {
-        private InzynierkaContext _context;
+        private CostSharingContext _context;
 
-        public GroupRepository(InzynierkaContext context)
+        public GroupRepository(CostSharingContext context)
         {
             _context = context;
         }

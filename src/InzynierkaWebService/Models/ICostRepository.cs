@@ -12,5 +12,7 @@ namespace InzynierkaWebService.Models
         Costs Find(int key);
         bool Remove(int key);
         void Update(Costs item);
+        IEnumerable<CostClone> GetCostByInstanceId(int instanceId, string username);
+        bool SaveCost(Costs item);
     }
 }

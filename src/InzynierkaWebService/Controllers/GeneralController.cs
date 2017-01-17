@@ -19,15 +19,17 @@ namespace InzynierkaWebService.Controllers
         public IMemberRepository Members { get; set; }
         public IInstanceRepository Instances { get; set; }
         public IUserRepository Users { get; set; }
+        public ICostTypeRepository CostTypes { get; set; }
 
 
-        public GeneralController(ICostRepository costs, IGroupRepository groups, IMemberRepository members, IUserRepository users, IInstanceRepository instances)
+        public GeneralController(ICostRepository costs, IGroupRepository groups, IMemberRepository members, IUserRepository users, IInstanceRepository instances, ICostTypeRepository costTypes)
         {
             this.Costs = costs;
             this.Groups = groups;
             this.Members = members;
             this.Users = users;
             this.Instances = instances;
+            this.CostTypes = costTypes;
         }
 
         [HttpGet("GetAllCosts")]
@@ -124,5 +126,59 @@ namespace InzynierkaWebService.Controllers
             return Instances.GetByGroupId(groupId);
         }
 
+        [HttpPost("SaveInstance")]
+        public IActionResult SaveInstance([FromBody] Instances instance)
+        {
+            if (instance == null)
+            {
+                return BadRequest();
+            }
+
+            //Groups.SaveGroup(group, username);
+            Instances.SaveInstance(instance);
+
+            return new OkResult();
+        }
+
+        [HttpGet("DeleteInstance/{instanceId}")]
+        public IActionResult DeleteInstance(int instanceId)
+        {
+            bool flag = Instances.Remove(instanceId);
+            if (flag)
+                return new OkResult();
+            else
+                return new NotFoundResult();
+        }
+                        
+        [HttpGet("GetCostByInstanceId/{instanceId}/{username}")]
+        public IEnumerable<CostClone> GetCostByInstanceId(int instanceId, string username)
+        {
+            return Costs.GetCostByInstanceId(instanceId, username);
+            //return Costs.GetAll();
+            //return new string[] { "value1", "value2" };
+        }
+
+        [HttpGet("GetCostTypes/{instanceId}/{username}")]
+        public IEnumerable<CostTypeClone> getCostTypes(int instanceId, string username)        
+        {
+            return CostTypes.getCostTypes(instanceId, username);
+            //return Costs.GetCostByInstanceId(instanceId, username);            
+        }
+
+        [HttpPost("SaveCost/{username}")]
+        public IActionResult SaveCost([FromBody] Costs cost, string username)
+        {
+            if (cost == null)
+            {
+                return BadRequest();
+            }
+
+            Costs.SaveCost(cost, username);
+            //Groups.SaveGroup(group, username);
+
+            return new OkResult();
+        }
     }
+
+
 }

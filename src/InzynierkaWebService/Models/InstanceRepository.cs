@@ -7,9 +7,9 @@ namespace InzynierkaWebService.Models
 {
     public class InstanceRepository : IInstanceRepository
     {
-        private InzynierkaContext _context;
+        private CostSharingContext _context;
 
-        public InstanceRepository(InzynierkaContext context)
+        public InstanceRepository(CostSharingContext context)
         {
             _context = context;
         }
@@ -35,27 +35,26 @@ namespace InzynierkaWebService.Models
 
         public Boolean SaveInstance(Instances instance)
         {
-            //var foundMember = _context.Members.FirstOrDefault(m => m.MemberId == member.MemberId);
-            //if (foundMember == null)
-            //{
-            //    _context.Members.Add(new Members
-            //    {
-            //        MemberId = _context.Members.Last().MemberId + 1,
-            //        Name = member.Name,
-            //        CorrespondingUserId = member.CorrespondingUserId,
-            //        GroupId = member.GroupId
-            //    });
-            //    _context.SaveChanges();
-            //    return true;
-            //}
+            var foundInstance = _context.Instances.FirstOrDefault(i => i.InstanceId == instance.InstanceId);
+            if (foundInstance == null)
+            {
+                _context.Instances.Add(new Instances
+                {
+                    InstanceId = _context.Instances.Last().InstanceId + 1,
+                    Name = instance.Name,                    
+                    GroupId = instance.GroupId
+                });
+                _context.SaveChanges();
+                return true;
+            }
             return false;
         }
-        public bool Remove(int memberId)
+        public bool Remove(int instanceId)
         {
-            var member = _context.Members.FirstOrDefault(m => m.MemberId == memberId);
-            if (member != null)
+            var instance = _context.Instances.FirstOrDefault(i => i.InstanceId == instanceId);
+            if (instance != null)
             {
-                _context.Members.Remove(member);
+                _context.Instances.Remove(instance);
 
                 _context.SaveChanges();
                 return true;
