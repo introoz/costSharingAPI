@@ -38,9 +38,13 @@ namespace InzynierkaWebService.Models
             var foundInstance = _context.Instances.FirstOrDefault(i => i.InstanceId == instance.InstanceId);
             if (foundInstance == null)
             {
+
+                int instanceId = 1;
+                if (_context.Instances.Count() != 0)
+                    instanceId = _context.Groups.Last().GroupId + 1;
                 _context.Instances.Add(new Instances
                 {
-                    InstanceId = _context.Instances.Last().InstanceId + 1,
+                    InstanceId = instanceId,//_context.Instances.Last().InstanceId + 1,
                     Name = instance.Name,                    
                     GroupId = instance.GroupId
                 });

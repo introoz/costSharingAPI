@@ -165,15 +165,15 @@ namespace InzynierkaWebService.Controllers
             //return Costs.GetCostByInstanceId(instanceId, username);            
         }
 
-        [HttpPost("SaveCost/{username}")]
-        public IActionResult SaveCost([FromBody] Costs cost, string username)
+        [HttpPost("SaveCost/{instanceId}/{username}")]
+        public IActionResult SaveCost([FromBody] Costs cost, int instanceId, string username)
         {
             if (cost == null)
             {
                 return BadRequest();
             }
 
-            Costs.SaveCost(cost, username);
+            Costs.SaveCost(cost, username, instanceId);
             //Groups.SaveGroup(group, username);
 
             return new OkResult();

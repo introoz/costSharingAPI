@@ -73,13 +73,21 @@ namespace InzynierkaWebService.Models
             }
             else
             {
-                item.GroupId = _context.Groups.Last().GroupId + 1;
+                
+                if(_context.Groups.Count() != 0)                                                    
+                    item.GroupId = _context.Groups.Last().GroupId + 1;
+                else
+                    item.GroupId = 1;
                 var user = _context.Users.FirstOrDefault(u => u.Login == username);
                 item.GroupOwner = user.UserId;
                 _context.Groups.Add(item);
+
+                int memberId = 1;
+                if (_context.Members.Count() != 0)
+                    memberId = _context.Groups.Last().GroupId + 1;
                 _context.Members.Add(new Members
                 {
-                    MemberId = _context.Members.Last().MemberId + 1,
+                    MemberId = memberId,
                     CorrespondingUserId = user.UserId,
                     GroupId = item.GroupId,
                     Name = user.Login

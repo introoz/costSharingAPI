@@ -116,15 +116,15 @@ namespace InzynierkaWebService.Models
 
         public bool SaveCost(Costs item, string username, int instanceId)
         {
-            var cost = _context.Costs.FirstOrDefault(c => c.CostId == item.CostId);
-            if(cost == null)
-            {
-                item.CostId = _context.Costs.Last().CostId;   
-                _context.Users             
-            }
+            //var cost = _context.Costs.FirstOrDefault(c => c.CostId == item.CostId);
+            //if(cost == null)
+            //{
+            //    item.CostId = _context.Costs.Last().CostId;   
+            //    _context.Users             
+            //}
 
-            _context.Costs.Add(item);
-            _context.SaveChanges();
+            //_context.Costs.Add(item);
+            //_context.SaveChanges();
 
             return true;
 
